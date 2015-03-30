@@ -77,24 +77,20 @@
             </noData>
             <pipe>
                 <rasterrenderer opacity="1" alphaBand="0" blueBand="1" greenBand="2" type="multibandcolor" redBand="3">
-                    <rasterTransparency>
-                        <threeValuePixelList>
-                            <pixelListEntry red="0" blue="0" green="0" percentTransparent="100"/>
-                        </threeValuePixelList>
-                    </rasterTransparency>
+                    <rasterTransparency/>
                     <redContrastEnhancement>
-                        <minValue>0</minValue>
-                        <maxValue>186</maxValue>
+                        <minValue>76.9099</minValue>
+                        <maxValue>167.367</maxValue>
                         <algorithm>StretchToMinimumMaximum</algorithm>
                     </redContrastEnhancement>
                     <greenContrastEnhancement>
-                        <minValue>0</minValue>
-                        <maxValue>204</maxValue>
+                        <minValue>73.0161</minValue>
+                        <maxValue>197.44</maxValue>
                         <algorithm>StretchToMinimumMaximum</algorithm>
                     </greenContrastEnhancement>
                     <blueContrastEnhancement>
-                        <minValue>0</minValue>
-                        <maxValue>218</maxValue>
+                        <minValue>77.9547</minValue>
+                        <maxValue>187.974</maxValue>
                         <algorithm>StretchToMinimumMaximum</algorithm>
                     </blueContrastEnhancement>
                 </rasterrenderer>
