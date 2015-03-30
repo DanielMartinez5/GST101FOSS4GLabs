@@ -2,7 +2,7 @@
 ## Lab 6 - Understanding Remote Sensing and Analysis
 ### Objective – Explore and Understand How to Display and Analyze Remotely Sensed Imagery
 
-Document Version: 3/7/2015
+Document Version: 3/30/2015
 
 **FOSS4G Lab Author:**
 Kurt Menke, GISP
@@ -27,9 +27,7 @@ This lab includes the following tasks:
 
 + Task 1 – Display and Inspection of Image Data
 
-+ Task 2 – Unsupervised Classification (Cluster Analysis)
-
-+ Task 3 – Supervised Classification
++ Task 2 – Supervised Classification
 
 ### 2. Objective: Learn the Basics of using QGIS Desktop and MultiSpec for Image Analysis
 
@@ -127,70 +125,14 @@ NOTE: The difference between using Apply and using OK. Clicking OK saves the cha
 
 25. Save your QGIS Desktop project.
 
-## Task 2 Unsupervised Classification (Cluster Analysis)
-
-We use unsupervised classifications to cluster pixels in a data set based on statistics only, without any user-defined training classes. It can also be used to understand how many clusters or categories of similar pixels exist in an image. Although the method requires no user input to create the classified image, the output tends to require a great deal of post classification operations to make the results more meaningful.
-
-1. From the menu bar choose Processing -> Toolbox (Figure below).
-
-![Turning on the Toolbox Panel](figures/Turning_on_the_Toolbox_Panel.png "Turning on the Toolbox Panel")
-
-2. This will open the Processing Toolbox panel. This toolbox contains hundreds of tools for processing both raster and vector data. These are tools imported from several standalone FOSS4G projects: GDAL/OGR, GRASS, Orfeo, SAGA etc. For the unsupervised classification of this image, you will use the SAGA -> Imagery – Classification -> Cluster analysis for grids tool (Figure below).
-
-![Cluster Analysis Tool in Processing Toolbox](figures/Cluster_Analysis_Tool_in_Processing_Toolbox.png "Cluster Analysis Tool in Processing Toolbox")
-
-3.Fill out the Cluster analysis for grids dialog window as follows (Figure below):
-
-	a. Click the ellipsis button to choose the ag020522_DPAC raster as the input (Figure below).
-	
-	b. Set the Method to [2] Combined Minimum Distance/Hillclimbing
-	
-	c.Set the number of Clusters to 7 
-
-	d. There is an option to save the final result to a file on disk. Here just take the default, which is to save the result to a temporary file.
-	
-	e. Click Run to run the cluster analysis.
-
-![Cluster Analysis Tool Settings](figures/Cluster_Analysis_Tool_Settings.png "Cluster Analysis Tool Settings")
-
-![Select Raster](figures/Select_Raster.png "Select Raster")
-
-4. The Clusters raster and a Statistics table will be added to the Table of Contents when it’s complete.
-
-5. Open the Layer Properties -> Style tab for the Clusters layer. By default, the cluster raster is styled as a Singband gray. You will change this so that each cluster has it’s own color as follows (Figure below):
-
-	a. Change the Render type to Singleband pseudocolor.
-
-	b. Keep the default color ramp of Random Colors
-
-	c. Choose Equal Interval as the Mode.
-
-	d. Set the number of Classes to 7.
-
-	e. Click the Classify button and the seven classes will receive unique colors.
-
-	f. Click Apply.
-
-![Styling the Cluster Raster](figures/Styling_the_Cluster_Raster.png "Styling the Cluster Raster")
-
-6. The resulting raster will resemble Figure below although your colors will likely differ since they are randomly chosen by QGIS. You can go into the Style tab again and change individual colors by double clicking on them to open the Change color window. You can also change the labels to text that better represents the objects by clicking and editing the text.
-
-![Unsupervised Classification (Cluster) Analysis](figures/Unsupervised_Classification_Cluster_Analysis.png "Unsupervised Classification Cluster Analysis")
-
-7. Right click on the Statistics table and choose Open Attribute Table (Figure below). This shows the results of the analysis. For example, the column ‘Elements’ shows the number of pixels in each cluster. Close the window when you are done examining it.
-
-![Cluster Statistics Table](figures/Cluster_Statistics_Table.png "Cluster Statistics Table")
-
-8. Save your project and close it. In the next task, you will be learning how to use MultiSpec to perform a supervised classification.
-
-## Task 3 Supervised Classification
+## Task 2 Supervised Classification
 
 In a supervised classification, you choose the areas that to be used as training areas for the analysis. Training areas should be a homogenous sample of a particular feature, such as the forested area in the ag020522_DPAC image. 
 For each training area, the multi-spectral (multi-band) pixel values are extracted and used to define a statistical signature. This signature is a statistical representation of a particular class, which is used by the software identify all pixels with a similar signature.
 
 1. Open MultiSpec by double clicking on the executable file. (GST101\Lab 6\MultiSpec\MultiSpecWin32\MultiSpecW32.exe)
 
-2. From the menu bar choose File -> Open Image. Choose ag020522_DPAC.img.
+2. From the menu bar choose File -> Open Image. Choose ag020522_DPAC.img. (This is located in your lab 6 data folder)
 
 3. The Set Display Specification for: window opens. Take all the defaults and click OK.
 
@@ -198,7 +140,9 @@ For each training area, the multi-spectral (multi-band) pixel values are extract
 
 ![MultiSpec](figures/MultiSpec.png "MultiSpec")
 
-5. From the menu bar, choose Project -> New Project. Click OK. The Project window will open.
+5. From the menu bar, choose File -> New Project. Click OK. The Project window will open.
+
+5. Set project options opens, accept all the defaults,click ok -> Project window opens
 
 6. Now you will begin to select training areas. Again, these will be homogeneous areas. Start with the forested area. Simply drag a small rectangular area within the forested portion of the image. Note that in the Project box the coordinates (row and column numbers) of the upper left corner and the lower right corner of the selected area appear the box near the bottom. Click Add that field to the list. The Define Class and/or Field Description window opens.
 
@@ -218,7 +162,7 @@ Note: Be careful not to define your training areas near the edges of the field o
 
 10. If necessary, you can delete a class by selecting the class in the list and selecting Cut Class from the Edit menu.
 
-11. From the menu bar choose Processor -> Classify to open the Set Classification Specifications dialog window.
+11. From the menu bar choose Processor -> Classify, this opens the Set Classification Specifications dialog window.
 
 12. Uncheck Image Selection. The other default settings are fine. Click OK (Figure below). If prompted to ‘Update project statistics before continuing’, click OK.
 
@@ -270,11 +214,11 @@ Note: Be careful not to define your training areas near the edges of the field o
 
 ![Text Output for the Supervised Classification](figures/Text_Output_for_the_Supervised_Classification.png "Text Output for the Supervised Classification")
 
-25. Now you’ll bring the MultiSpec supervised classification results into QGIS Desktop. If necessary Open QGIS Desktop 2.2.0 and from the menu bar choose Project -> Open Recent -> Lab 6.qgs (If you had closed your project the unsupervised classification data will be missing since it those were temporary layers. You will get a Handle bad layers dialog. Just click Cancel to close it. )
+25. Now you’ll bring the MultiSpec supervised classification results into QGIS Desktop. If necessary Open QGIS Desktop 2.6.0 and from the menu bar choose Project -> Open Recent -> Lab 6.qgs (If you had closed your project the unsupervised classification data will be missing since it those were temporary layers. You will get a Handle bad layers dialog. Just click Cancel to close it. )
 
 26. Click the Add Raster Layer button and choose the ag020522_DPAC.gis file.
 
-27. Right click on the layer in the Table of Contents and choose Set Layer CRS from the context menu. Choose WGS84/UTM zone 16N from the Recently used coordinate reference systems. The layer should overlay your image.
+27. Right click on the layer in the Table of Contents and choose Set Layer CRS from the context menu. Choose WGS84/UTM zone 16N (EPSG:32616) from the Recently used coordinate reference systems. The layer should overlay your image.
 
 28. Open the Layer Properties for this layer and go to the Style tab.
 
@@ -303,7 +247,7 @@ Note: Be careful not to define your training areas near the edges of the field o
 ![Supervised Classification Data in QGIS Desktop](figures/Supervised_Classiication_Data_in_QGIS_Desktop.png "Supervised Classification Data in QGIS Desktop")
 
 ### 5. Conclusion
-In this lab, you have learned the basics of working with multi-spectral imagery in QGIS Desktop. You’ve learned how to access data processing tools in QGIS Desktop and run an unsupervised classification (cluster analysis) on the imagery. You've also learned how to do a Supervised Classification in MultiSpec, a freeware multispectral image data analysis system.  MultiSpec is an excellent example of many free-to-use programs available for imagery analysis and GIS-related tasks.  
+In this lab, you have learned the basics of working with multi-spectral imagery in QGIS Desktop. You've also learned how to do a Supervised Classification in MultiSpec, a freeware multispectral image data analysis system.  MultiSpec is an excellent example of many free-to-use programs available for imagery analysis and GIS-related tasks.  
 
 
 ### 6. Discussion Questions
@@ -312,7 +256,7 @@ In this lab, you have learned the basics of working with multi-spectral imagery 
 
 2. Even though the imagery used in this lab contained recordings of wavelengths beyond the visible spectrum, why do you think each range of hyperspectral information was mapped to the colors red, green, and blue?
 
-3. In lecture, you learned that photointerpretation is the process of converting images to information through human interpretation.  Based on the results of tasks 2 and 3  in this lab, do you think that computers can interpret as well as humans?
+3. In lecture, you learned that photointerpretation is the process of converting images to information through human interpretation.  Based on the results of task 3  in this lab, do you think that computers can interpret as well as humans?
 
 
 ### 7. Challenge Assignment (optional) 
